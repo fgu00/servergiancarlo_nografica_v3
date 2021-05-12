@@ -24,22 +24,16 @@ private int indirizzo;
 private ArrayList<String>membri;
 private String messaggio;
 private Socket accedi;
- private PrintWriter out;
+private PrintWriter out;
 private BufferedReader in;
 private int tipologia;
 
 
     public chat(String nome) {
         this.nome=nome;
-           try {
-            out=new PrintWriter(accedi.getOutputStream(),true);
-            in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
-        } catch (IOException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     public void accedi_privata(Socket accedi) throws IOException{
-        BufferedReader in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+         in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
         String indirizzoutente=in.readLine();
         for (int i = 0; i <membri.size(); i++) {
         if(indirizzoutente.equals(membri.get(i)))
@@ -56,8 +50,20 @@ private int tipologia;
             } catch (IOException ex) {
                 Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
             }
+              try {
+            out=new PrintWriter(accedi.getOutputStream(),true);
+            in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+        } catch (IOException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
          }else{
             this.accedi_publica(accedi);
+              try {
+            out=new PrintWriter(accedi.getOutputStream(),true);
+            in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+        } catch (IOException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     public void setTipologia(int a){
@@ -68,7 +74,7 @@ private int tipologia;
     //controlla che ci siano nuovi mesaggi
     public void run() {
      while(true){
-         if(messaggio.equals(messaggi.get(messaggi.size()))){
+         if(!messaggio.equals(messaggi.get(messaggi.size()))){
              stampa();
          }
      }
@@ -114,6 +120,10 @@ private int tipologia;
     }
     public int getTipologia() {
         return tipologia;
+    }
+
+    public chat getChat() throws CloneNotSupportedException{
+    return (chat) this.clone();  
     }
     
 }

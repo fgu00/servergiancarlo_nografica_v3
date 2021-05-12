@@ -4,12 +4,17 @@
  * and open the template in the editor.
  */
 package giancarlo;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import static giancarlo.Giancarlo.persone;
 import java.io.*;
 import java.net.*;
+import java.util.Date;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.rmi.transport.Transport;
 /**
  *
  * @author super
@@ -51,8 +56,12 @@ public class login {
                 this.a=new utente(nome,password,mail,"b");
                 boolean acesso=false; 
                 while(!acesso){
-                    //da mettere la mail    
-               }
+                 Properties p=new Properties();
+                 p.put("mail.smtp.auth", "true");
+                 p.put("mail.smpt.starttls.enable", mail);
+                 Session s=new Session;
+               
+                }
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
@@ -68,7 +77,8 @@ public class login {
                     String indirizzo2=m[1];
                     String indirizzo_canale=m[2];
                     String nome3=m[3];
-                    categorie nuova=new categorie(nome3);
+                    int tipologia3=Integer.parseInt(m[4]);
+                    categorie nuova=new categorie(nome3,tipologia3);
                     break;
                 case 4:
                     //per creare un chat da finire

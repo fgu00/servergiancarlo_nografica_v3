@@ -7,18 +7,22 @@ package giancarlo;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
  * @author super
  */
 public class categorie {
-     private String nome;
-    private ArrayList<chat>chat;
+    private String nome;
+    private Vector chat=new Vector();
+    private ArrayList<utente>persone=new ArrayList<utente>();
     private Socket accedi;
+    private int tipologia;
     
-    public categorie(String nome){
+    public categorie(String nome,int tipologia){
      this.nome=nome;
+     this.tipologia=tipologia;
     }
      public String getNome(){
         return nome;
