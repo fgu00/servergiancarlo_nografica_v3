@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package giancarlo;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import static giancarlo.Giancarlo.persone;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
@@ -26,28 +25,34 @@ public class login {
     private boolean log ;
     private PrintWriter out;
     private BufferedReader in;
+    private ArrayList<utente>utenti=new ArrayList();
+    gestione_canali gc=new gestione_canali();
 
     public login() {
         accedi=new Socket();
         log=false;
-        try {
+    }
+    public void accedi(Socket clientsocket){
+          accedi=clientsocket;
+          System.out.println(accedi.getInetAddress());
+          try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
-                
-            
-            
+            interazioni();
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void accedi(Socket clientsocket){
-          accedi=clientsocket;
-    }
     public void interazioni(){
+        boolean ciclo=true;
+        while(ciclo==true){
         try {
             String richiesta=in.readLine();
+            System.out.println(richiesta);
             String[]m=richiesta.split(":");
-            int n=Integer.getInteger(m[0]);
+            System.out.println(m[0]);
+            int n=Integer.parseInt(m[0]);
+            System.out.println(n);
             switch(n){
                 case 0:
                 String nome=m[1];
@@ -59,18 +64,24 @@ public class login {
                  Properties p=new Properties();
                  p.put("mail.smtp.auth", "true");
                  p.put("mail.smpt.starttls.enable", mail);
-                 Session s=new Session;
-               
+                 //Session s=new Session;
                 }
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
+                    String nomeu=m[1];
+                    String passwordu=m[2];
+                    String mailu=m[3];
+                    String immagineu=m[4];
+                    utente ut=new utente(nomeu,passwordu,mailu,immagineu);
+                    utenti.add(ut);
                     break;
                 case 2:
                     //per creare un nuovo canale
-                    String indirizzo=m[1];
-                    String nome2=m[2];
+                    String nome2=m[1];
                     canale nuovo=new canale(nome2);
+                    gc.aggiungicanale(nuovo);
+                    out.write(nuovo.getindirizzo());
                     break;
                 case 3:
                     //per creare una categoria
@@ -81,15 +92,10 @@ public class login {
                     categorie nuova=new categorie(nome3,tipologia3);
                     break;
                 case 4:
-                    //per creare un chat da finire
-                    String indirizzo4=m[1];
-                    //da mettere una volta fatto il canale dove verra inserita la chat
-                    String nome5=m[2];
-                    String nome_chat=m[3];
-                    String tipologia=m[4];
-                    chat c=new chat(nome_chat);
-                    c.setTipologia(Integer.parseInt(tipologia));
-                    c.aggiungi_utente(indirizzo4);
+                    //per accedere ad un canale
+                    gc.accedi(accedi);
+                    gc.accedi_canale(Integer.parseInt(m[4]));
+                   
                     break;
                 case 8:
                     String indirizzo8=m[1];
@@ -123,11 +129,14 @@ public class login {
                     String indirizzo_chat2=m[3];
                     String messaggio=m[4];
                     break;
+                case 9:
+                    ciclo=false;
             }
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+    }
     }
     
     public boolean accesso_eseguito(){

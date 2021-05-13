@@ -15,8 +15,10 @@ import java.util.ArrayList;
 public class gestione_canali {
      private ArrayList<canale>canale=new ArrayList<canale>();
      private Socket accedi=new Socket();
-     public gestione_canali(Socket accedi){
-        this.accedi=accedi; 
+     public gestione_canali(){ 
+     }
+     public void accedi(Socket accedi){
+      this.accedi=accedi;    
      }
      public void aggiungicanale(canale a){
          canale.add(a);

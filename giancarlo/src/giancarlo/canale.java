@@ -28,6 +28,7 @@ public class canale {
         private indirizzo a=new indirizzo();
         private Socket accedi=new Socket();
         private BufferedReader in;
+        private PrintWriter out;
 
     public canale(String nome) throws IOException {
         this.nome = nome;
@@ -50,6 +51,7 @@ public class canale {
       accedi=s;  
          try {
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+            out=new PrintWriter(accedi.getOutputStream(),true);
             azione_canale();
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,7 +107,18 @@ public class canale {
                     nuova_categoria(m[1],Integer.parseInt(m[2]));
                     break;
                 case 7:
+                    //eliminare una chat
+                    chat.remove(Integer.parseInt(m[1]));
+                    out.write("");
+                    break;
+                case 8:
+                    //eliminare una categoria
+                    categorie.remove(Integer.parseInt(m[1]));
+                    out.write("");
+                    break;
+                case 9:
                    ciclo=false;
+                   break;
             }
             }
     }

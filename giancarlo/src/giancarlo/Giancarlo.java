@@ -5,6 +5,7 @@
  */
 package giancarlo;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,25 +26,18 @@ public class Giancarlo {
         login acesso;
         try {
             ServerSocket server=new ServerSocket(20);
-           // server.bind( 0, "0.0.0.0");
             System.out.println("server attivo");
             acesso=new login();
             log.add(acesso);
             while(true){
-                boolean fatto=false;
                  Socket client = server.accept();
-                for (int i = 0; i <log.size(); i++) {
-                    if(log.get(i).accesso_eseguito()!=true){
-                        log.get(i).accedi(client);
-                        fatto=true;
-                    }
-                    if(fatto==false){  
-                        login accesso2=new login();
-                      log.add(accesso2);
-                      log.get(log.size()).accedi(client);
-                    }
-                    
+                 
+                   PrintWriter out=new PrintWriter(client.getOutputStream(),true);
+                    if(client!=null){
+                        acesso.accedi(client);
+                        //log.add(acesso);
                 }
+                System.out.println("33");
             }
         } catch (IOException ex) {
             Logger.getLogger(Giancarlo.class.getName()).log(Level.SEVERE, null, ex);
