@@ -38,9 +38,10 @@ public class canale {
         chat.add(c);
         immagine=this.nome.charAt(0);
     }
-    public void nuova_chat(String nome,int tipologia){
+    public void nuova_chat(String nome,int tipologia,String id){
         chat c=new chat(nome);
         c.setTipologia(tipologia);
+        c.aggiungi_utente(id);
         chat.add(c);
     }
     public void nuova_categoria(String nome,int tipologia){
@@ -100,7 +101,7 @@ public class canale {
                     break;
                 case 5:
                     //crea chat
-                    nuova_chat(m[1],Integer.parseInt(m[2]));
+                    nuova_chat(m[1],Integer.parseInt(m[2]),m[3]);
                     break;
                 case 6:
                     //creare categoria

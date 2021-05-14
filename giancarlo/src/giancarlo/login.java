@@ -18,11 +18,11 @@ import sun.rmi.transport.Transport;
  *
  * @author super
  */
-public class login {
+public class login  implements Runnable{
    Scanner sc=new Scanner(System.in);
     private Socket accedi;
     private utente a;
-    private boolean log ;
+    private boolean log=false;
     private PrintWriter out;
     private BufferedReader in;
     private ArrayList<utente>utenti=new ArrayList();
@@ -38,7 +38,7 @@ public class login {
           try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
-            interazioni();
+            log=true;
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,6 +144,11 @@ public class login {
     }
     public utente getUtente(){
         return a;  
+    }
+
+    @Override
+    public void run() {
+      interazioni(); 
     }
     
 } 

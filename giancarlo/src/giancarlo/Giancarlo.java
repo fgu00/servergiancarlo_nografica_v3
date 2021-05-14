@@ -22,20 +22,25 @@ public class Giancarlo {
      */
      public static ArrayList<utente>persone=new ArrayList();
     public static void main(String[] args) {
-         ArrayList<login>log=new ArrayList();
+         ArrayList<Thread>log=new ArrayList();
         login acesso;
         try {
             ServerSocket server=new ServerSocket(20);
             System.out.println("server attivo");
             acesso=new login();
-            log.add(acesso);
             while(true){
                  Socket client = server.accept();
-                 
                    PrintWriter out=new PrintWriter(client.getOutputStream(),true);
                     if(client!=null){
                         acesso.accedi(client);
-                        //log.add(acesso);
+                        Thread a=new Thread(acesso);
+                        a.start();
+                        log.add(a);
+                        for (int i = 0; i < log.size(); i++) {
+                            if(log.get(i).isAlive()==false){
+                                log.remove(i);
+                            }
+                        }
                 }
                 System.out.println("33");
             }

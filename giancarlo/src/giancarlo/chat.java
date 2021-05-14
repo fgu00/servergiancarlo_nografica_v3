@@ -98,8 +98,7 @@ private int tipologia;
     return null; 
     }
     public void getNome(){
-    out.write(nome);
-        
+    out.write(nome); 
     }
     public void getIndirizzo(){
     out.write(indirizzo);  
@@ -125,5 +124,42 @@ private int tipologia;
     public chat getChat() throws CloneNotSupportedException{
     return (chat) this.clone();  
     }
-    
+    public void interzazioni(){
+         boolean ciclo=true;
+        while(ciclo==true){
+             try {
+                 String richiesta=in.readLine();
+                 String[]m=richiesta.split(":");
+                 int n=Integer.getInteger(m[0]);
+                 switch(n){
+                     case 1:
+                       //per cambiare nome
+                         nome=m[1];
+                         break;
+                     case 2:
+                        //2 per scrivere un messaggio
+                         scrivi();
+                         break;
+                     case 3:
+                         //per stampare
+                         stampa();
+                         break;
+                     case 4:
+                         //per aggiungere un utente
+                         aggiungi_utente(m[1]);
+                         break;
+                     case 5:
+                         //elimina utente
+                         elimina_utente(m[1]);
+                         break;
+                     case 6:
+                         //per uscire
+                         ciclo=true;
+                         
+                         
+                 }} catch (IOException ex) {
+                 Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            }
+    }
 }
