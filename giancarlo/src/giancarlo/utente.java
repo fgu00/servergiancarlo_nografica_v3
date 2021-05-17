@@ -5,6 +5,8 @@
  */
 package giancarlo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author super
@@ -17,6 +19,7 @@ public class utente {
     private Object immagine;
     private int indirizzo;
     private indirizzo a;
+    private ArrayList<canale>indirizzi_canali=new ArrayList<canale>();
     
 
     public utente(String nome, String password, String mail, Object immagine) {
@@ -70,5 +73,15 @@ public class utente {
     //serve per visualizzare le notifiche
     public void visualizza_notifiche(){
         
-    }  
+    } 
+    public ArrayList<canale> getCanali(){
+       return indirizzi_canali;  
+    }
+    public void new_canale(canale a){
+        indirizzi_canali.add(a);
+    }
+    public void elimina_canale(canale a){
+      indirizzi_canali.remove(a);
+    }
+    
 }

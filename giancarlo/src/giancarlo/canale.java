@@ -88,11 +88,18 @@ public class canale {
                     break;
                 case 3:
                     //accedi chat
-                    chat a=(chat) chat.get(Integer.parseInt(m[1]));
-                    a.acesso(accedi);
+                    chat a = null;
+                    int posizione=0;
+                    for (int i = 0; i < chat.size(); i++) {
+                         a=(chat)chat.get(i);
+                        if(Integer.parseInt(m[1])==a.indirizzo()){
+                            a.acesso(accedi);
+                            posizione=i;
+                        }
+                    }
                     Thread b=new Thread(a);
                     b.start();
-                    chat.setElementAt(a,Integer.parseInt(m[1]));
+                    chat.setElementAt(a,posizione);
                     break;
                 case 4:
                     //accedi categoria

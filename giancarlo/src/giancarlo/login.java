@@ -21,12 +21,17 @@ import sun.rmi.transport.Transport;
 public class login  implements Runnable{
    Scanner sc=new Scanner(System.in);
     private Socket accedi;
+    private int posizione;
     private utente a;
     private boolean log=false;
     private PrintWriter out;
     private BufferedReader in;
     private ArrayList<utente>utenti=new ArrayList();
-    gestione_canali gc=new gestione_canali();
+    private gestione_canali gc=new gestione_canali();
+    private InputStream i;
+    private ObjectInputStream o;
+    private OutputStream oi;
+    private ObjectOutputStream oo;
 
     public login() {
         accedi=new Socket();
@@ -38,6 +43,10 @@ public class login  implements Runnable{
           try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+             i = accedi.getInputStream();
+             o = new ObjectInputStream(i);
+              oi = accedi.getOutputStream();
+             oo = new ObjectOutputStream(oi);
             log=true;
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,11 +57,8 @@ public class login  implements Runnable{
         while(ciclo==true){
         try {
             String richiesta=in.readLine();
-            System.out.println(richiesta);
             String[]m=richiesta.split(":");
-            System.out.println(m[0]);
             int n=Integer.parseInt(m[0]);
-            System.out.println(n);
             switch(n){
                 case 0:
                 String nome=m[1];
@@ -74,62 +80,31 @@ public class login  implements Runnable{
                     String mailu=m[3];
                     String immagineu=m[4];
                     utente ut=new utente(nomeu,passwordu,mailu,immagineu);
-                    utenti.add(ut);
+                    for (int i = 0; i <utenti.size(); i++) {
+                        if(ut==utenti.get(i)){
+                          oo.writeObject(utenti.get(i).getCanali());
+                          a=utenti.get(i);
+                          posizione=i;
+                          break;
+                        }
+                    }
                     break;
                 case 2:
                     //per creare un nuovo canale
                     String nome2=m[1];
                     canale nuovo=new canale(nome2);
                     gc.aggiungicanale(nuovo);
-                    out.write(nuovo.getindirizzo());
+                    a.new_canale(nuovo);
                     break;
                 case 3:
-                    //per creare una categoria
-                    String indirizzo2=m[1];
-                    String indirizzo_canale=m[2];
-                    String nome3=m[3];
-                    int tipologia3=Integer.parseInt(m[4]);
-                    categorie nuova=new categorie(nome3,tipologia3);
+                    //accedi ad un canale
+                    String id=m[1];
+                    gc.accedi(accedi);
+                    gc.accedi_canale(Integer.parseInt(id));
                     break;
                 case 4:
-                    //per accedere ad un canale
-                    gc.accedi(accedi);
-                    gc.accedi_canale(Integer.parseInt(m[4]));
-                   
-                    break;
-                case 8:
-                    String indirizzo8=m[1];
-                    //da mettere una volta fatto il canale dove verra inserita la chat
-                    String nome8=m[2];
-                    String nome_categotia=m[3];
-                    String nome_chat8=m[4];
-                    String tipologia8=m[5];
-                    chat c1=new chat(nome_chat8);
-                    c1.setTipologia(Integer.parseInt(tipologia8));
-                    c1.aggiungi_utente(indirizzo8);
-                    //mettere la chat dentro un canale attraverso il quale metterlo nella categoria
-                    break;
-                case 5:
-                    //per inviate una persona in un canale
-                   String indirizzo5=m[1];
-                    String indirizzo_2=m[2];
-                    String indirizzo_canale2=m[3];
-                    break;
-                case 6:
-                    //per invitare una persona in una chat
-                    String indirizzo6=m[1];
-                    String indirizzo_3=m[2];
-                    String indirizzo_canale3=m[3];
-                    String indirizzo_della_chat=m[4];
-                    break;
-                case 7:
-                    //per inviare un messaggio da finire
-                    String indirizzo7=m[1];
-                    String indirizzo_canale4=m[2];
-                    String indirizzo_chat2=m[3];
-                    String messaggio=m[4];
-                    break;
-                case 9:
+                      //uscire
+                    utenti.set(posizione, a);
                     ciclo=false;
             }
         } catch (IOException ex) {

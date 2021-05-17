@@ -7,6 +7,8 @@ package giancarlo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ private Socket accedi;
 private PrintWriter out;
 private BufferedReader in;
 private int tipologia;
+private OutputStream oi;
+private ObjectOutputStream oo;
 
 
     public chat(String nome) {
@@ -53,6 +57,9 @@ private int tipologia;
               try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+            oi = accedi.getOutputStream();
+            oo = new ObjectOutputStream(oi);
+             interzazioni();
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,6 +68,9 @@ private int tipologia;
               try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
+             oi = accedi.getOutputStream();
+             oo = new ObjectOutputStream(oi);
+             interzazioni();
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,16 +85,17 @@ private int tipologia;
     public void run() {
      while(true){
          if(!messaggio.equals(messaggi.get(messaggi.size()))){
-             stampa();
+             try {
+                 stampa();
+             } catch (IOException ex) {
+                 Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+             }
          }
      }
     }
      //serve per stampare tutti i messaggi       
-    public void stampa(){
-        for (int i = 0; i < 10; i++) {
-            out.println(messaggi.get(i));
-        }
-  
+    public void stampa() throws IOException{
+          oo.writeObject(messaggi);
     }
     //serve per scrivere nella chat
     public synchronized void scrivi(){
