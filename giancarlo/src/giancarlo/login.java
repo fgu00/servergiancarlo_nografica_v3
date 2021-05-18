@@ -77,14 +77,11 @@ public class login  implements Runnable{
                     //da fare quando sara implementato il salvattaggio
                     String nomeu=m[1];
                     String passwordu=m[2];
-                    String mailu=m[3];
-                    String immagineu=m[4];
-                    utente ut=new utente(nomeu,passwordu,mailu,immagineu);
-                    for (int i = 0; i <utenti.size(); i++) {
-                        if(ut==utenti.get(i)){
-                          oo.writeObject(utenti.get(i).getCanali());
-                          a=utenti.get(i);
-                          posizione=i;
+                    for (int j = 0; j < utenti.size(); j++) {
+                        if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())){
+                          oo.writeObject(utenti.get(j));
+                          a=utenti.get(j);
+                          posizione=j;
                           break;
                         }
                     }
@@ -106,13 +103,15 @@ public class login  implements Runnable{
                       //uscire
                     utenti.set(posizione, a);
                     ciclo=false;
-            }
+            } 
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+    }
        
-    }
-    }
+    
+    
     
     public boolean accesso_eseguito(){
         return log;
