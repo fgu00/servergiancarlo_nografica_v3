@@ -82,7 +82,7 @@ public class login  implements Runnable{
                     String passwordu=m[2];
                     for (int j = 0; j < utenti.size(); j++) {
                         if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())){
-                          oo.writeObject(utenti.get(j));
+                         // oo.writeObject(utenti.get(j));
                             System.out.println(j);
                           a=utenti.get(j);
                           posizione=j;
@@ -90,9 +90,13 @@ public class login  implements Runnable{
                           break;
                         }
                     }
-                    if(esiste==false){
-                        oo.writeObject("account non esiste");
+                    if(esiste==true){
+                        oo.writeObject("1");
+                        oo.writeObject(utenti.get(posizione));
                         System.out.println("u");
+                    }else{
+                        oo.writeObject("0");
+                        System.out.println("mlwdw");
                     }
                     break;
                 case 2:
