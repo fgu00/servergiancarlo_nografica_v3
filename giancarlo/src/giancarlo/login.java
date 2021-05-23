@@ -57,6 +57,7 @@ public class login  implements Runnable{
         while(ciclo==true){
         try {
             String richiesta=in.readLine();
+            System.out.println(richiesta);
             String[]m=richiesta.split(":");
             int n=Integer.parseInt(m[0]);
             switch(n){
@@ -75,15 +76,23 @@ public class login  implements Runnable{
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
+                    System.out.println("jdjdjd");
+                    Boolean esiste=false;
                     String nomeu=m[1];
                     String passwordu=m[2];
                     for (int j = 0; j < utenti.size(); j++) {
                         if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())){
                           oo.writeObject(utenti.get(j));
+                            System.out.println(j);
                           a=utenti.get(j);
                           posizione=j;
+                          esiste=true;
                           break;
                         }
+                    }
+                    if(esiste==false){
+                        oo.writeObject("account non esiste");
+                        System.out.println("u");
                     }
                     break;
                 case 2:
