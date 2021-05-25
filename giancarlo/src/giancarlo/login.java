@@ -43,8 +43,6 @@ public class login  implements Runnable{
           try {
             out=new PrintWriter(accedi.getOutputStream(),true);
             in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
-             i = accedi.getInputStream();
-             o = new ObjectInputStream(i);
               oi = accedi.getOutputStream();
              oo = new ObjectOutputStream(oi);
             log=true;
@@ -52,7 +50,7 @@ public class login  implements Runnable{
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void interazioni(){
+    public void interazioni() throws IOException{
         boolean ciclo=true;
         while(ciclo==true){
         try {
@@ -65,14 +63,10 @@ public class login  implements Runnable{
                 String nome=m[1];
                 String password=m[2];
                 String mail=m[3];
-                this.a=new utente(nome,password,mail,"b");
-                boolean acesso=false; 
-                while(!acesso){
-                 Properties p=new Properties();
-                 p.put("mail.smtp.auth", "true");
-                 p.put("mail.smpt.starttls.enable", mail);
-                 //Session s=new Session;
-                }
+                String immagine=""+nome.charAt(0);
+                this.a=new utente(nome,password,mail,immagine);
+                utenti.add(a);
+                oo.writeObject(a);
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
@@ -80,9 +74,9 @@ public class login  implements Runnable{
                     Boolean esiste=false;
                     String nomeu=m[1];
                     String passwordu=m[2];
+                    String mailu=m[3];
                     for (int j = 0; j < utenti.size(); j++) {
-                        if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())){
-                         // oo.writeObject(utenti.get(j));
+                        if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())&&mailu.equals(utenti.get(j).getMail())){
                             System.out.println(j);
                           a=utenti.get(j);
                           posizione=j;
@@ -135,7 +129,11 @@ public class login  implements Runnable{
 
     @Override
     public void run() {
-      interazioni(); 
+       try { 
+           interazioni();
+       } catch (IOException ex) {
+           Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
     
 } 
