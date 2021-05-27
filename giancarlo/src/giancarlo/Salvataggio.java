@@ -33,8 +33,7 @@ private File file;
     
      private void salva() throws InterruptedException{
 try {
-System.out.println(" ");
-FileOutputStream preout = new FileOutputStream(new File("salvataggio.ser"));
+FileOutputStream preout = new FileOutputStream(file);
 ObjectOutputStream out = new ObjectOutputStream(preout);
 out.writeObject(persone);
 out.writeObject(canali_tutti);
