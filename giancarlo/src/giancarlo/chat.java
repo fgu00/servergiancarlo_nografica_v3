@@ -101,6 +101,7 @@ private ObjectOutputStream oo;
     public synchronized void scrivi(){
         try {  
             String messaggio=in.readLine();
+            messaggi.add(messaggio);
         } catch (IOException ex) {
             Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
         }

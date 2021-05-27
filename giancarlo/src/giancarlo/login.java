@@ -99,6 +99,7 @@ public class login  implements Runnable{
                     canale nuovo=new canale(nome2);
                     gc.aggiungicanale(nuovo);
                     a.new_canale(nuovo);
+                    oo.writeObject(a);
                     break;
                 case 3:
                     //accedi ad un canale
@@ -107,6 +108,12 @@ public class login  implements Runnable{
                     gc.accedi_canale(Integer.parseInt(id));
                     break;
                 case 4:
+                    //eliminare un canale
+                    String id2=m[1];
+                    gc.elimina_canale(Integer.parseInt(id2));
+                    oo.writeObject(a);
+                    break;
+                case 5:
                       //uscire
                     utenti.set(posizione, a);
                     ciclo=false;
