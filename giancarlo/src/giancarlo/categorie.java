@@ -31,10 +31,11 @@ public class categorie {
     private ObjectOutputStream oo;
     private PrintWriter out;
     private BufferedReader in;
+    private int id_canale;
     
-    public categorie(String nome,int tipologia){
+    public categorie(String nome,int id){
      this.nome=nome;
-     this.tipologia=tipologia;
+     this.id_canale=id;
     }
      public String getNome(){
         return nome;
@@ -62,7 +63,7 @@ public class categorie {
                          break;
                      case 2:
                          //aggiungi chat
-                          chat c=new chat(m[1]);
+                          chat c=new chat(m[1],id_canale);
                            c.setTipologia(Integer.parseInt(m[2]));
                            chat.add(c);
                            break;

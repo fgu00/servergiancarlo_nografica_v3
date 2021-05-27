@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package giancarlo;
+import static giancarlo.Giancarlo.persone;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,6 +13,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +25,7 @@ public class chat implements Runnable{
 private String nome;
 private ArrayList<Object>messaggi;
 private int indirizzo;
-private ArrayList<String>membri;
+private ArrayList<Integer>membri;
 private String messaggio;
 private Socket accedi;
 private PrintWriter out;
@@ -31,10 +33,12 @@ private BufferedReader in;
 private int tipologia;
 private OutputStream oi;
 private ObjectOutputStream oo;
+private int id_canale;
 
 
-    public chat(String nome) {
+    public chat(String nome,int id) {
         this.nome=nome;
+        id_canale=id;
     }
     public void accedi_privata(Socket accedi) throws IOException{
          in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
@@ -118,11 +122,22 @@ private ObjectOutputStream oo;
     public int indirizzo(){
     return indirizzo;   
     }
-    public void aggiungi_utente(String a){
-      membri.add(a);
+    public void aggiungi_utente(int a){
+        for (int i = 0; i < persone.size(); i++) {
+            if(persone.get(i).getIndirizzo()==a){
+            for (int j = 0; j < persone.get(i).ncanali(); j++) {
+              if(persone.get(i).indirizzo_canale(j)==id_canale){   
+                membri.add(persone.get(i).getIndirizzo()); 
+            }  
+            }
+        }
+        }
     }
-    public void elimina_utente(String a){
-    membri.remove(a);
+    
+    public void elimina_utente(int a) throws IOException{
+        oo.writeObject(membri);
+        String comando=in.readLine();
+        membri.remove(Integer.parseInt(comando));
     }
     public void getUtente(){
         for (int i = 0; i < 10; i++) {
@@ -158,11 +173,11 @@ private ObjectOutputStream oo;
                          break;
                      case 4:
                          //per aggiungere un utente
-                         aggiungi_utente(m[1]);
+                         aggiungi_utente(Integer.parseInt(m[1]));
                          break;
                      case 5:
                          //elimina utente
-                         elimina_utente(m[1]);
+                         elimina_utente(Integer.parseInt(m[1]));
                          break;
                      case 6:
                          //per uscire

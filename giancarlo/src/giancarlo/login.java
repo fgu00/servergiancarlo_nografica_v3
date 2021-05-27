@@ -65,7 +65,7 @@ public class login  implements Runnable{
                 String mail=m[3];
                 String immagine=""+nome.charAt(0);
                 this.a=new utente(nome,password,mail,immagine);
-                utenti.add(a);
+                persone.add(a);
                 oo.writeObject(a);
                 break;
                 case 1:
@@ -75,10 +75,10 @@ public class login  implements Runnable{
                     String nomeu=m[1];
                     String passwordu=m[2];
                     String mailu=m[3];
-                    for (int j = 0; j < utenti.size(); j++) {
-                        if(nomeu.equals(utenti.get(j).getNome())&&passwordu.equals(utenti.get(j).getPassword())&&mailu.equals(utenti.get(j).getMail())){
+                    for (int j = 0; j < persone.size(); j++) {
+                        if(nomeu.equals(persone.get(j).getNome())&&passwordu.equals(persone.get(j).getPassword())&&mailu.equals(persone.get(j).getMail())){
                             System.out.println(j);
-                          a=utenti.get(j);
+                          a=persone.get(j);
                           posizione=j;
                           esiste=true;
                           break;
@@ -86,7 +86,7 @@ public class login  implements Runnable{
                     }
                     if(esiste==true){
                         oo.writeObject("1");
-                        oo.writeObject(utenti.get(posizione));
+                        oo.writeObject(persone.get(posizione));
                         System.out.println("u");
                     }else{
                         oo.writeObject("0");
@@ -115,7 +115,7 @@ public class login  implements Runnable{
                     break;
                 case 5:
                       //uscire
-                    utenti.set(posizione, a);
+                    persone.set(posizione, a);
                     ciclo=false;
             } 
         } catch (IOException ex) {

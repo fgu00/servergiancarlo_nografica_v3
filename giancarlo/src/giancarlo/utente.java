@@ -27,7 +27,7 @@ public class utente {
         this.password = password;
         this.mail = mail;
         this.immagine = immagine;
-        indirizzo=-2;
+        indirizzo=a.nuovo_utente();
         a=new indirizzo();
     }
     //serve per cambiare il nome del utente
@@ -82,6 +82,12 @@ public class utente {
     }
     public void elimina_canale(canale a){
       indirizzi_canali.remove(a);
+    }
+    public int indirizzo_canale(int a){
+       return indirizzi_canali.get(a).getindirizzo();
+    }
+    public int ncanali(){
+        return indirizzi_canali.size();
     }
     
 }

@@ -22,6 +22,7 @@ public class Giancarlo {
      */
      public static ArrayList<utente>persone=new ArrayList();
     public static void main(String[] args) {
+        
          ArrayList<Thread>log=new ArrayList();
         login acesso;
         try {
