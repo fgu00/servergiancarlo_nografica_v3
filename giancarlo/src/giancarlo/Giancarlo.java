@@ -21,8 +21,11 @@ public class Giancarlo {
      * @param args the command line arguments
      */
      public static ArrayList<utente>persone=new ArrayList();
-    public static void main(String[] args) {
-        
+     public static ArrayList<canale>canali_tutti=new ArrayList(); 
+    public static void main(String[] args) throws IOException {
+        Salvataggio sal=new Salvataggio();
+        Thread salva=new Thread(sal);
+        salva.start();
          ArrayList<Thread>log=new ArrayList();
         login acesso;
         try {
