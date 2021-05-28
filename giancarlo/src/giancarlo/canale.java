@@ -108,11 +108,11 @@ public class canale {
                     break;
                 case 5:
                     //crea chat
-                    nuova_chat(m[1],Integer.parseInt(m[2]),Integer.parseInt(m[3]));
+                    nuova_chat(m[1],Integer.parseInt(m[2]),indirizzo);
                     break;
                 case 6:
                     //creare categoria
-                    nuova_categoria(m[1],Integer.parseInt(m[2]));
+                    nuova_categoria(m[1],indirizzo);
                     break;
                 case 7:
                     //eliminare una chat
