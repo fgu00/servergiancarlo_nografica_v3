@@ -35,6 +35,9 @@ public class Giancarlo {
             while(true){
                  Socket client = server.accept();
                    PrintWriter out=new PrintWriter(client.getOutputStream(),true);
+                   o1.writeObject("0:"+nome+":"+password+":"+mail+":"+immagine);
+                   o.flush();
+                   o1.close();
                     if(client!=null){
                         System.out.println(client.getInetAddress()+" jdjfdofjckodf");
                         acesso.accedi(client);
@@ -53,6 +56,8 @@ public class Giancarlo {
             Logger.getLogger(Giancarlo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   
     
 }
 
