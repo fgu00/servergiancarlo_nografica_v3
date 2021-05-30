@@ -35,6 +35,7 @@ private int tipologia;
 private OutputStream oi;
 private ObjectOutputStream oo;
 private int id_canale;
+private boolean ciclo=true;
 
 
     public chat(String nome,int id) {
@@ -88,16 +89,11 @@ private int id_canale;
     @Override
     //controlla che ci siano nuovi mesaggi
     public void run() {
-     while(true){
-         if(!messaggio.equals(messaggi.get(messaggi.size()))){
-             try {
-                 stampa();
-             } catch (IOException ex) {
-                 Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
-             }
+     while(ciclo==true){
+        interzazioni();
          }
      }
-    }
+    
      //serve per stampare tutti i messaggi       
     public void stampa() throws IOException{
         for (int i = 0; i < messaggi.size(); i++) {
@@ -191,7 +187,8 @@ private int id_canale;
                          break;
                      case 6:
                          //per uscire
-                         ciclo=true;
+                         ciclo=false;
+                         this.ciclo=false;
                          
                          
                  }} catch (IOException ex) {

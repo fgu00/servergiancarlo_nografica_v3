@@ -34,6 +34,8 @@ public class gestione_canali {
              bw.println(i+" per accedere al canale "+canale.get(i).getImmagine()+" "+canale.get(i).getNome());
              bw.flush();
          }
+         bw.println("fine");
+         bw.flush();
          String comando=in.readLine();
          canale.get(Integer.parseInt(comando)).accedi(accedi);  
          }

@@ -48,7 +48,7 @@ public String getImmagine(){
     public void nuova_chat(String nome,int tipologia,int id){
         chat c=new chat(nome,indirizzo);
         c.setTipologia(tipologia);
-        c.aggiungi_utente(id);
+//        c.aggiungi_utente(id);
         chat.add(c);
     }
     public void nuova_categoria(String nome,int tipologia){
@@ -83,7 +83,8 @@ public String getImmagine(){
         while(ciclo==true){
        String richiesta=in.readLine();
             String[]m=richiesta.split(":");
-            int n=Integer.getInteger(m[0]);  
+            System.out.println(m[0]);
+            int n=Integer.parseInt(m[0]);  
             switch(n){
                 case 1:
                     //cambiare nome
@@ -102,6 +103,8 @@ public String getImmagine(){
                      bw.println(i+" per accedere alla chat "+a.getNome());
                      bw.flush();
                     }
+                    bw.println("fine");
+                    bw.flush();
                     String ac=in.readLine();
                     a=(chat)chat.get(Integer.parseInt(ac));
                     posizione=Integer.parseInt(ac);
@@ -118,6 +121,8 @@ public String getImmagine(){
                        bw.println(i+" per accedere alla categoria "+c.getNome());
                        bw.flush();
                     }
+                    bw.println("fine");
+                    bw.flush();
                     String ab=in.readLine();
                     c=(giancarlo.categorie) categorie.get(Integer.parseInt(ab));
                     posizione=Integer.parseInt(ab);
