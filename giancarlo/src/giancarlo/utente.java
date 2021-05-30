@@ -5,6 +5,8 @@
  */
 package giancarlo;
 
+import static giancarlo.Giancarlo.in;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -89,5 +91,29 @@ public class utente {
     public int ncanali(){
         return indirizzi_canali.size();
     }
-    
-}
+    public void azioni_utente() throws IOException{
+          boolean ciclo=true;
+        while(ciclo==true){
+            String richiesta=in.readLine();
+            String[]m=richiesta.split(":");
+             int n=Integer.getInteger(m[0]);
+             switch(n){
+                 case 1:
+                     nome=m[1];
+                      break;
+                 case 2:
+                   password=m[1];
+                     break;
+                 case 3:
+                     mail=m[1];
+                     break;
+                 case 4:
+                     immagine=m[1];
+                     break;
+                 case 5:
+                     ciclo=false;
+             }
+        }
+        }
+    }
+

@@ -5,6 +5,7 @@
  */
 package giancarlo;
 
+import static giancarlo.Giancarlo.bw;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -69,24 +70,30 @@ public class categorie {
                            break;
                      case 3:
                          //eliminare chat
-                         chat.remove(Integer.parseInt(m[1]));
-                         out.write("");
+                         chat ch=null;
+                         for (int i = 0; i < chat.size(); i++) {
+                     ch=(chat)chat.get(i);
+                     bw.write(i+" per accedere alla chat "+ch.getNome());
+                    }
+                         String comado=in.readLine();
+                         chat.remove(Integer.parseInt(comado));
+                         out.write("chat eliminata con sucesso");
                          break;
                      case 4:
                          //accedere ad una chat
-                         chat a = null;
+                         chat a = null ;
                     int posizione=0;
                     for (int i = 0; i < chat.size(); i++) {
-                         a=(chat)chat.get(i);
-                        if(Integer.parseInt(m[1])==a.indirizzo()){
-                            a.acesso(accedi);
-                            posizione=i;
-                        }
+                     a=(chat)chat.get(i);
+                     bw.write(i+" per accedere alla chat "+a.getNome());
                     }
-                    Thread b=new Thread(a);
+                    String ac=in.readLine();
+                    a=(chat)chat.get(Integer.parseInt(ac));
+                    posizione=Integer.parseInt(ac);
+                    a.acesso(accedi);
+                   Thread b=new Thread(a);
                     b.start();
                     chat.setElementAt(a,posizione);
-                    break;
                      case 5:
                          //per uscire 
                          ciclo=false;

@@ -107,10 +107,13 @@ public class login  implements Runnable{
                     gc.elimina_canale(Integer.parseInt(id2));
                     oo.writeObject(a);
                     break;
-                case 5:
+                case 6:
                       //uscire
                     persone.set(posizione, a);
                     ciclo=false;
+                    break;
+                case 5:
+                    a.azioni_utente();
             } 
         } catch (IOException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);

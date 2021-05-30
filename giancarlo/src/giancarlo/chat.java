@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package giancarlo;
+import static giancarlo.Giancarlo.bw;
 import static giancarlo.Giancarlo.persone;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -99,7 +100,9 @@ private int id_canale;
     }
      //serve per stampare tutti i messaggi       
     public void stampa() throws IOException{
-          oo.writeObject(messaggi);
+        for (int i = 0; i < messaggi.size(); i++) {
+          bw.write((String) messaggi.get(i));
+        }
     }
     //serve per scrivere nella chat
     public synchronized void scrivi(){
@@ -180,7 +183,11 @@ private int id_canale;
                          break;
                      case 5:
                          //elimina utente
-                         elimina_utente(Integer.parseInt(m[1]));
+                          for (int i = 0; i < membri.size(); i++) {
+                         bw.write(i+" per eliminare l'utente "+membri.get(i));
+                         }
+                         String comando=in.readLine();
+                         elimina_utente(Integer.parseInt(comando));
                          break;
                      case 6:
                          //per uscire
