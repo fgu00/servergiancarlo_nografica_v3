@@ -31,7 +31,8 @@ public class gestione_canali {
      }
      public void accedi_canale(int b) throws IOException{
          for (int i = 0; i < canale.size(); i++) {
-             bw.write(i+" per accedere al canale "+canale.get(i).getImmagine()+" "+canale.get(i).getNome());
+             bw.println(i+" per accedere al canale "+canale.get(i).getImmagine()+" "+canale.get(i).getNome());
+             bw.flush();
          }
          String comando=in.readLine();
          canale.get(Integer.parseInt(comando)).accedi(accedi);  

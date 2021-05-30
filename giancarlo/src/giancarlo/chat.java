@@ -102,6 +102,7 @@ private int id_canale;
     public void stampa() throws IOException{
         for (int i = 0; i < messaggi.size(); i++) {
           bw.write((String) messaggi.get(i));
+          bw.flush();
         }
     }
     //serve per scrivere nella chat
@@ -141,9 +142,7 @@ private int id_canale;
     }
     
     public void elimina_utente(int a) throws IOException{
-        oo.writeObject(membri);
-        String comando=in.readLine();
-        membri.remove(Integer.parseInt(comando));
+        membri.remove(a);
     }
     public void getUtente(){
         for (int i = 0; i < 10; i++) {
@@ -184,7 +183,8 @@ private int id_canale;
                      case 5:
                          //elimina utente
                           for (int i = 0; i < membri.size(); i++) {
-                         bw.write(i+" per eliminare l'utente "+membri.get(i));
+                         bw.println(i+" per eliminare l'utente "+membri.get(i));
+                         bw.flush();
                          }
                          String comando=in.readLine();
                          elimina_utente(Integer.parseInt(comando));

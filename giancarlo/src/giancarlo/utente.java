@@ -7,19 +7,19 @@ package giancarlo;
 
 import static giancarlo.Giancarlo.in;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author super
  */
-public class utente {
+public class utente implements Serializable{
    private String nome;
     private String password;
     private String mail;
-    //da cambiare perche non so come va salvata l'immaguine
     private Object immagine;
-    private int indirizzo;
+    private int indirizzo=0;
     private indirizzo a;
     private ArrayList<canale>indirizzi_canali=new ArrayList<canale>();
     
@@ -29,8 +29,9 @@ public class utente {
         this.password = password;
         this.mail = mail;
         this.immagine = immagine;
+         a=new indirizzo();
         indirizzo=a.nuovo_utente();
-        a=new indirizzo();
+        //a=new indirizzo();
     }
     //serve per cambiare il nome del utente
     public void cambio_nome(String nome){

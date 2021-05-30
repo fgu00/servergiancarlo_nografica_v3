@@ -47,7 +47,9 @@ public class login  implements Runnable{
         boolean ciclo=true;
         while(ciclo==true){
         try {
-            String richiesta=in.readLine();
+            //System.out.println(in.readLine());
+           String richiesta=in.readLine();
+           // String richiesta="";
             System.out.println(richiesta);
             String[]m=richiesta.split(":");
             int n=Integer.parseInt(m[0]);
@@ -60,7 +62,8 @@ public class login  implements Runnable{
                 String immagine=""+nome.charAt(0);
                 this.a=new utente(nome,password,mail,immagine);
                 persone.add(a);
-                bw.write("utente creato con successo");
+                bw.println("utente creato con successo");
+                bw.flush();
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
@@ -79,11 +82,12 @@ public class login  implements Runnable{
                         }
                     }
                     if(esiste==true){
-                        bw.write("1");
-                        //oo.writeObject(persone.get(posizione));
-                        System.out.println("u");
+                        bw.println("1");
+                        bw.flush();
+                        bw.println("acceso avvenuto");
                     }else{
-                        bw.write("0");
+                        bw.println("0");
+                        bw.flush();
                         System.out.println("mlwdw");
                     }
                     break;
@@ -93,7 +97,8 @@ public class login  implements Runnable{
                     canale nuovo=new canale(nome2);
                     gc.aggiungicanale(nuovo);
                     a.new_canale(nuovo);
-                    bw.write("canale creato con sucesso");
+                    bw.println("canale creato con sucesso");
+                    bw.flush();
                     break;
                 case 3:
                     //accedi ad un canale
@@ -105,7 +110,6 @@ public class login  implements Runnable{
                     //eliminare un canale
                     String id2=m[1];
                     gc.elimina_canale(Integer.parseInt(id2));
-                    oo.writeObject(a);
                     break;
                 case 6:
                       //uscire

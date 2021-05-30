@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.Vector;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author super
  */
-public class canale {
+public class canale implements Serializable{
         private String nome;
         private int indirizzo;
         private Vector chat=new Vector();
@@ -98,7 +99,8 @@ public String getImmagine(){
                     int posizione=0;
                     for (int i = 0; i < chat.size(); i++) {
                      a=(chat)chat.get(i);
-                     bw.write(i+" per accedere alla chat "+a.getNome());
+                     bw.println(i+" per accedere alla chat "+a.getNome());
+                     bw.flush();
                     }
                     String ac=in.readLine();
                     a=(chat)chat.get(Integer.parseInt(ac));
@@ -113,7 +115,8 @@ public String getImmagine(){
                     int posizione2=0;
                     for (int i = 0; i < categorie.size(); i++) {
                        c=(giancarlo.categorie) categorie.get(i);
-                       bw.write(i+" per accedere alla categoria "+c.getNome());
+                       bw.println(i+" per accedere alla categoria "+c.getNome());
+                       bw.flush();
                     }
                     String ab=in.readLine();
                     c=(giancarlo.categorie) categorie.get(Integer.parseInt(ab));
@@ -134,22 +137,26 @@ public String getImmagine(){
                     chat a2=null;
                      for (int i = 0; i < chat.size(); i++) {
                      a2=(chat)chat.get(i);
-                     bw.write(i+" per eliminare la chat "+a2.getNome());
+                     bw.println(i+" per eliminare la chat "+a2.getNome());
+                     bw.flush();
                     }
                     String elimina=in.readLine();
                     chat.remove(Integer.parseInt(elimina));
-                    bw.write("eliminazione completata");
+                    bw.println("eliminazione completata");
+                    bw.flush();
                     break;
                 case 8:
                     //eliminare una categoria
                     categorie s=null;
                      for (int i = 0; i < chat.size(); i++) {
                      s=(categorie)categorie.get(i);
-                     bw.write(i+" per eliminare la categoria "+s.getNome());
+                     bw.println(i+" per eliminare la categoria "+s.getNome());
+                     bw.flush();
                     }
                     String elimina2=in.readLine();
                     categorie.remove(Integer.parseInt(elimina2));
-                    bw.write("eliminazione completata");
+                    bw.println("eliminazione completata");
+                    bw.flush();
                     break;
                 case 9:
                    ciclo=false;

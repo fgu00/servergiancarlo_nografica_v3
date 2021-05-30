@@ -73,11 +73,12 @@ public class categorie {
                          chat ch=null;
                          for (int i = 0; i < chat.size(); i++) {
                      ch=(chat)chat.get(i);
-                     bw.write(i+" per accedere alla chat "+ch.getNome());
+                     bw.println(i+" per accedere alla chat "+ch.getNome());
+                     bw.flush();
                     }
                          String comado=in.readLine();
                          chat.remove(Integer.parseInt(comado));
-                         out.write("chat eliminata con sucesso");
+                         out.println("chat eliminata con sucesso");
                          break;
                      case 4:
                          //accedere ad una chat
@@ -85,7 +86,8 @@ public class categorie {
                     int posizione=0;
                     for (int i = 0; i < chat.size(); i++) {
                      a=(chat)chat.get(i);
-                     bw.write(i+" per accedere alla chat "+a.getNome());
+                     bw.println(i+" per accedere alla chat "+a.getNome());
+                     bw.flush();
                     }
                     String ac=in.readLine();
                     a=(chat)chat.get(Integer.parseInt(ac));

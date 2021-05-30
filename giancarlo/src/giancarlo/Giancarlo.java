@@ -28,9 +28,9 @@ public class Giancarlo {
      public static ArrayList<utente>persone=new ArrayList();
      public static ArrayList<canale>canali_tutti=new ArrayList(); 
       public static  OutputStream versoIlClient =null;
-      public static BufferedWriter bw = null;
+      public static PrintWriter bw = null;
        public static BufferedReader in = null;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Salvataggio sal=new Salvataggio();
         Thread salva=new Thread(sal);
         salva.start();
@@ -44,7 +44,7 @@ public class Giancarlo {
                  Socket client = server.accept();
                   // PrintWriter out=new PrintWriter(client.getOutputStream(),true);
                    versoIlClient = client.getOutputStream();
-                   bw = new BufferedWriter(  new OutputStreamWriter(versoIlClient));
+                   bw = new PrintWriter(  new OutputStreamWriter(versoIlClient));
                    in = new BufferedReader( new InputStreamReader(client.getInputStream()));
                     if(client!=null){
                         System.out.println(client.getInetAddress()+" jdjfdofjckodf");

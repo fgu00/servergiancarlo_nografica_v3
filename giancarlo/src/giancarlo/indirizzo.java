@@ -5,11 +5,13 @@
  */
 package giancarlo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author super
  */
-public class indirizzo {
+public class indirizzo implements Serializable{
   public static int utenti=0;
     public static  int canali=0;
     public indirizzo(){ 
