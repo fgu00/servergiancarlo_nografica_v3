@@ -85,6 +85,7 @@ public class login  implements Runnable{
                         bw.println("1");
                         bw.flush();
                         bw.println("acceso avvenuto");
+                        bw.flush();
                     }else{
                         bw.println("0");
                         bw.flush();
@@ -102,14 +103,14 @@ public class login  implements Runnable{
                     break;
                 case 3:
                     //accedi ad un canale
-                    String id=m[1];
+                   // String id=m[1];
                     gc.accedi(accedi,a);
-                    gc.accedi_canale(Integer.parseInt(id));
+                    gc.accedi_canale();
                     break;
                 case 4:
                     //eliminare un canale
-                    String id2=m[1];
-                    gc.elimina_canale(Integer.parseInt(id2));
+                    //String id2=m[1];
+                    gc.elimina_canale();
                     break;
                 case 6:
                       //uscire

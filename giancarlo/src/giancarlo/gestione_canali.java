@@ -29,7 +29,7 @@ public class gestione_canali {
      public void aggiungicanale(canale a){
          canale.add(a);
      }
-     public void accedi_canale(int b) throws IOException{
+     public void accedi_canale() throws IOException{
          for (int i = 0; i < canale.size(); i++) {
              bw.println(i+" per accedere al canale "+canale.get(i).getImmagine()+" "+canale.get(i).getNome());
              bw.flush();
@@ -38,13 +38,13 @@ public class gestione_canali {
          canale.get(Integer.parseInt(comando)).accedi(accedi);  
          }
      
-     public void elimina_canale(int indirizzo){
+     public void elimina_canale() throws IOException{
           for (int i = 0; i < canale.size(); i++) {
-             if(indirizzo==canale.get(i).getindirizzo()){
-                 canale.remove(i);
-                 break;
+             bw.println(i+" per eliminare il canale "+canale.get(i).getImmagine()+" "+canale.get(i).getNome());
+             bw.flush();
+         }
+         String comando=in.readLine();
+         canale.remove(comando);
+         }
              }
-     }
-}
      
-}
