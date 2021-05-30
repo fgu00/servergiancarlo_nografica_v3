@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package giancarlo;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.*;
 import java.util.ArrayList;
@@ -35,9 +39,11 @@ public class Giancarlo {
             while(true){
                  Socket client = server.accept();
                    PrintWriter out=new PrintWriter(client.getOutputStream(),true);
-                   o1.writeObject("0:"+nome+":"+password+":"+mail+":"+immagine);
+                   
+                  bw= new BufferedWriter( new OutputStreamWriter());
+                  br=new BufferedReader(new InputStreamReader(server.getInputStream));
                    o.flush();
-                   o1.close();
+                   
                     if(client!=null){
                         System.out.println(client.getInetAddress()+" jdjfdofjckodf");
                         acesso.accedi(client);
