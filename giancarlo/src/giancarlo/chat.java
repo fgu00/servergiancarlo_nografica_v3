@@ -113,8 +113,11 @@ private int id_canale;
     public ArrayList<Object> getMessaggi(){
     return null; 
     }
-    public void getNome(){
+    public void setNome(){
     out.write(nome); 
+    }
+    public String getNome(){
+    return nome;   
     }
     public void getIndirizzo(){
     out.write(indirizzo);  

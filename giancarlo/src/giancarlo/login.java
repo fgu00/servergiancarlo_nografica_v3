@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package giancarlo;
+import static giancarlo.Giancarlo.bw;
+import static giancarlo.Giancarlo.in;
 import static giancarlo.Giancarlo.persone;
 import java.io.*;
 import java.net.*;
@@ -25,7 +27,6 @@ public class login  implements Runnable{
     private utente a;
     private boolean log=false;
     private PrintWriter out;
-    private BufferedReader in;
     private ArrayList<utente>utenti=new ArrayList();
     private gestione_canali gc=new gestione_canali();
     private InputStream i;
@@ -40,15 +41,7 @@ public class login  implements Runnable{
     public void accedi(Socket clientsocket){
           accedi=clientsocket;
           System.out.println(accedi.getInetAddress());
-          try {
-            out=new PrintWriter(accedi.getOutputStream(),true);
-            in=new BufferedReader(new InputStreamReader(accedi.getInputStream()));
-              oi = accedi.getOutputStream();
-             oo = new ObjectOutputStream(oi);
-            log=true;
-        } catch (IOException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+          log=true;
     }
     public void interazioni() throws IOException{
         boolean ciclo=true;
@@ -60,13 +53,14 @@ public class login  implements Runnable{
             int n=Integer.parseInt(m[0]);
             switch(n){
                 case 0:
+                    //creazione nuovo utente
                 String nome=m[1];
                 String password=m[2];
                 String mail=m[3];
                 String immagine=""+nome.charAt(0);
                 this.a=new utente(nome,password,mail,immagine);
                 persone.add(a);
-                oo.writeObject(a);
+                bw.write("utente creato con successo");
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
@@ -85,11 +79,11 @@ public class login  implements Runnable{
                         }
                     }
                     if(esiste==true){
-                        oo.writeObject("1");
-                        oo.writeObject(persone.get(posizione));
+                        bw.write("1");
+                        //oo.writeObject(persone.get(posizione));
                         System.out.println("u");
                     }else{
-                        oo.writeObject("0");
+                        bw.write("0");
                         System.out.println("mlwdw");
                     }
                     break;
@@ -99,12 +93,12 @@ public class login  implements Runnable{
                     canale nuovo=new canale(nome2);
                     gc.aggiungicanale(nuovo);
                     a.new_canale(nuovo);
-                    oo.writeObject(a);
+                    bw.write("canale creato con sucesso");
                     break;
                 case 3:
                     //accedi ad un canale
                     String id=m[1];
-                    gc.accedi(accedi);
+                    gc.accedi(accedi,a);
                     gc.accedi_canale(Integer.parseInt(id));
                     break;
                 case 4:

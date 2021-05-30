@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.*;
@@ -26,6 +27,9 @@ public class Giancarlo {
      */
      public static ArrayList<utente>persone=new ArrayList();
      public static ArrayList<canale>canali_tutti=new ArrayList(); 
+      public static  OutputStream versoIlClient =null;
+      public static BufferedWriter bw = null;
+       public static BufferedReader in = null;
     public static void main(String[] args) throws IOException {
         Salvataggio sal=new Salvataggio();
         Thread salva=new Thread(sal);
@@ -38,12 +42,10 @@ public class Giancarlo {
             acesso=new login();
             while(true){
                  Socket client = server.accept();
-                   PrintWriter out=new PrintWriter(client.getOutputStream(),true);
-                   
-                  bw= new BufferedWriter( new OutputStreamWriter());
-                  br=new BufferedReader(new InputStreamReader(server.getInputStream));
-                   o.flush(); 
-                   
+                  // PrintWriter out=new PrintWriter(client.getOutputStream(),true);
+                   versoIlClient = client.getOutputStream();
+                   bw = new BufferedWriter(  new OutputStreamWriter(versoIlClient));
+                   in = new BufferedReader( new InputStreamReader(client.getInputStream()));
                     if(client!=null){
                         System.out.println(client.getInetAddress()+" jdjfdofjckodf");
                         acesso.accedi(client);
