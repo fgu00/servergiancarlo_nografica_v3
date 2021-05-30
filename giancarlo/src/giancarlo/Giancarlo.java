@@ -42,12 +42,10 @@ public class Giancarlo {
             acesso=new login();
             while(true){
                  Socket client = server.accept();
-                  // PrintWriter out=new PrintWriter(client.getOutputStream(),true);
                    versoIlClient = client.getOutputStream();
                    bw = new PrintWriter(  new OutputStreamWriter(versoIlClient));
                    in = new BufferedReader( new InputStreamReader(client.getInputStream()));
                     if(client!=null){
-                        System.out.println(client.getInetAddress()+" jdjfdofjckodf");
                         acesso.accedi(client);
                         Thread a=new Thread(acesso);
                         a.start();
@@ -58,7 +56,6 @@ public class Giancarlo {
                             }
                         }
                 }
-                System.out.println("33");
             }
         } catch (IOException ex) {
             Logger.getLogger(Giancarlo.class.getName()).log(Level.SEVERE, null, ex);

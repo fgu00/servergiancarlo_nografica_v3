@@ -83,7 +83,6 @@ public String getImmagine(){
         while(ciclo==true){
        String richiesta=in.readLine();
             String[]m=richiesta.split(":");
-            System.out.println(m[0]);
             int n=Integer.parseInt(m[0]);  
             switch(n){
                 case 1:

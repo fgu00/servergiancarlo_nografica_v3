@@ -40,17 +40,13 @@ public class login  implements Runnable{
     }
     public void accedi(Socket clientsocket){
           accedi=clientsocket;
-          System.out.println(accedi.getInetAddress());
           log=true;
     }
     public void interazioni() throws IOException{
         boolean ciclo=true;
         while(ciclo==true){
         try {
-            //System.out.println(in.readLine());
            String richiesta=in.readLine();
-           // String richiesta="";
-            System.out.println(richiesta);
             String[]m=richiesta.split(":");
             int n=Integer.parseInt(m[0]);
             switch(n){
@@ -67,7 +63,6 @@ public class login  implements Runnable{
                 break;
                 case 1:
                     //da fare quando sara implementato il salvattaggio
-                    System.out.println("jdjdjd");
                     Boolean esiste=false;
                     String nomeu=m[1];
                     String passwordu=m[2];
@@ -103,13 +98,11 @@ public class login  implements Runnable{
                     break;
                 case 3:
                     //accedi ad un canale
-                   // String id=m[1];
                     gc.accedi(accedi,a);
                     gc.accedi_canale();
                     break;
                 case 4:
                     //eliminare un canale
-                    //String id2=m[1];
                     gc.elimina_canale();
                     break;
                 case 6:
