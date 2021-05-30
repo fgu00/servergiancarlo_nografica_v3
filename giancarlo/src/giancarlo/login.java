@@ -84,7 +84,6 @@ public class login  implements Runnable{
                     }else{
                         bw.println("0");
                         bw.flush();
-                        System.out.println("mlwdw");
                     }
                     break;
                 case 2:
