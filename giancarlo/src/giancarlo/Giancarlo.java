@@ -42,7 +42,7 @@ public class Giancarlo {
                    
                   bw= new BufferedWriter( new OutputStreamWriter());
                   br=new BufferedReader(new InputStreamReader(server.getInputStream));
-                   o.flush();
+                   o.flush(); 
                    
                     if(client!=null){
                         System.out.println(client.getInetAddress()+" jdjfdofjckodf");
